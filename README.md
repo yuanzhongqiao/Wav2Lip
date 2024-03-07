@@ -1,139 +1,201 @@
-# **Wav2Lip**: *Accurately Lip-syncing Videos In The Wild*
-
-Are you looking to integrate this into a product? We have a turn-key hosted API with new and improved lip-syncing models here: https://synclabs.so/
-
-For any other commercial / enterprise requests, please contact us at pavan@synclabs.so and prady@synclabs.so
-
-To reach out to the authors directly you can reach us at prajwal@synclabs.so, rudrabha@synclabs.so.
-
-This code is part of the paper: _A Lip Sync Expert Is All You Need for Speech to Lip Generation In the Wild_ published at ACM Multimedia 2020. 
-
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-lip-sync-expert-is-all-you-need-for-speech/lip-sync-on-lrs2)](https://paperswithcode.com/sota/lip-sync-on-lrs2?p=a-lip-sync-expert-is-all-you-need-for-speech)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-lip-sync-expert-is-all-you-need-for-speech/lip-sync-on-lrs3)](https://paperswithcode.com/sota/lip-sync-on-lrs3?p=a-lip-sync-expert-is-all-you-need-for-speech)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-lip-sync-expert-is-all-you-need-for-speech/lip-sync-on-lrw)](https://paperswithcode.com/sota/lip-sync-on-lrw?p=a-lip-sync-expert-is-all-you-need-for-speech)
-
-|📑 Original Paper|📰 Project Page|🌀 Demo|⚡ Live Testing|📔 Colab Notebook
-|:-:|:-:|:-:|:-:|:-:|
-[Paper](http://arxiv.org/abs/2008.10010) | [Project Page](http://cvit.iiit.ac.in/research/projects/cvit-projects/a-lip-sync-expert-is-all-you-need-for-speech-to-lip-generation-in-the-wild/) | [Demo Video](https://youtu.be/0fXaDCZNOJc) | [Interactive Demo](https://synclabs.so/) | [Colab Notebook](https://colab.research.google.com/drive/1tZpDWXz49W6wDcTprANRGLo2D_EbD5J8?usp=sharing) /[Updated Collab Notebook](https://colab.research.google.com/drive/1IjFW1cLevs6Ouyu4Yht4mnR4yeuMqO7Y#scrollTo=MH1m608OymLH)
- 
-![Logo](https://drive.google.com/uc?export=view&id=1Wn0hPmpo4GRbCIJR8Tf20Akzdi1qjjG9)
-
-----------
-**Highlights**
-----------
- - Weights of the visual quality disc has been updated in readme!
- - Lip-sync videos to any target speech with high accuracy :100:. Try our [interactive demo](https://synclabs.so/).
- - :sparkles: Works for any identity, voice, and language. Also works for CGI faces and synthetic voices.
- - Complete training code, inference code, and pretrained models are available :boom:
- - Or, quick-start with the Google Colab Notebook: [Link](https://colab.research.google.com/drive/1tZpDWXz49W6wDcTprANRGLo2D_EbD5J8?usp=sharing). Checkpoints and samples are available in a Google Drive [folder](https://drive.google.com/drive/folders/1I-0dNLfFOSFwrfqjNa-SXuwaURHE5K4k?usp=sharing) as well. There is also a [tutorial video](https://www.youtube.com/watch?v=Ic0TBhfuOrA) on this, courtesy of [What Make Art](https://www.youtube.com/channel/UCmGXH-jy0o2CuhqtpxbaQgA). Also, thanks to [Eyal Gruss](https://eyalgruss.com), there is a more accessible [Google Colab notebook](https://j.mp/wav2lip) with more useful features. A tutorial collab notebook is present at this [link](https://colab.research.google.com/drive/1IjFW1cLevs6Ouyu4Yht4mnR4yeuMqO7Y#scrollTo=MH1m608OymLH).  
- - :fire: :fire: Several new, reliable evaluation benchmarks and metrics [[`evaluation/` folder of this repo]](https://github.com/Rudrabha/Wav2Lip/tree/master/evaluation) released. Instructions to calculate the metrics reported in the paper are also present.
-
---------
-**Disclaimer**
---------
-All results from this open-source code or our [demo website](https://bhaasha.iiit.ac.in/lipsync) should only be used for research/academic/personal purposes only. As the models are trained on the <a href="http://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs2.html">LRS2 dataset</a>, any form of commercial use is strictly prohibited. For commercial requests please contact us directly!
-
-Prerequisites
--------------
-- `Python 3.6` 
-- ffmpeg: `sudo apt-get install ffmpeg`
-- Install necessary packages using `pip install -r requirements.txt`. Alternatively, instructions for using a docker image is provided [here](https://gist.github.com/xenogenesi/e62d3d13dadbc164124c830e9c453668). Have a look at [this comment](https://github.com/Rudrabha/Wav2Lip/issues/131#issuecomment-725478562) and comment on [the gist](https://gist.github.com/xenogenesi/e62d3d13dadbc164124c830e9c453668) if you encounter any issues. 
-- Face detection [pre-trained model](https://www.adrianbulat.com/downloads/python-fan/s3fd-619a316812.pth) should be downloaded to `face_detection/detection/sfd/s3fd.pth`. Alternative [link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/prajwal_k_research_iiit_ac_in/EZsy6qWuivtDnANIG73iHjIBjMSoojcIV0NULXV-yiuiIg?e=qTasa8) if the above does not work.
-
-Getting the weights
-----------
-| Model  | Description |  Link to the model | 
-| :-------------: | :---------------: | :---------------: |
-| Wav2Lip  | Highly accurate lip-sync | [Link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/radrabha_m_research_iiit_ac_in/Eb3LEzbfuKlJiR600lQWRxgBIY27JZg80f7V9jtMfbNDaQ?e=TBFBVW)  |
-| Wav2Lip + GAN  | Slightly inferior lip-sync, but better visual quality | [Link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/radrabha_m_research_iiit_ac_in/EdjI7bZlgApMqsVoEUUXpLsBxqXbn5z8VTmoxp55YNDcIA?e=n9ljGW) |
-| Expert Discriminator  | Weights of the expert discriminator | [Link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/radrabha_m_research_iiit_ac_in/EQRvmiZg-HRAjvI6zqN9eTEBP74KefynCwPWVmF57l-AYA?e=ZRPHKP) |
-| Visual Quality Discriminator  | Weights of the visual disc trained in a GAN setup | [Link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/radrabha_m_research_iiit_ac_in/EQVqH88dTm1HjlK11eNba5gBbn15WMS0B0EZbDBttqrqkg?e=ic0ljo) |
-
-Lip-syncing videos using the pre-trained models (Inference)
--------
-You can lip-sync any video to any audio:
-```bash
-python inference.py --checkpoint_path <ckpt> --face <video.mp4> --audio <an-audio-source> 
-```
-The result is saved (by default) in `results/result_voice.mp4`. You can specify it as an argument,  similar to several other available options. The audio source can be any file supported by `FFMPEG` containing audio data: `*.wav`, `*.mp3` or even a video file, from which the code will automatically extract the audio.
-
-##### Tips for better results:
-- Experiment with the `--pads` argument to adjust the detected face bounding box. Often leads to improved results. You might need to increase the bottom padding to include the chin region. E.g. `--pads 0 20 0 0`.
-- If you see the mouth position dislocated or some weird artifacts such as two mouths, then it can be because of over-smoothing the face detections. Use the `--nosmooth` argument and give it another try. 
-- Experiment with the `--resize_factor` argument, to get a lower-resolution video. Why? The models are trained on faces that were at a lower resolution. You might get better, visually pleasing results for 720p videos than for 1080p videos (in many cases, the latter works well too). 
-- The Wav2Lip model without GAN usually needs more experimenting with the above two to get the most ideal results, and sometimes, can give you a better result as well.
-
-Preparing LRS2 for training
-----------
-Our models are trained on LRS2. See [here](#training-on-datasets-other-than-lrs2) for a few suggestions regarding training on other datasets.
-##### LRS2 dataset folder structure
-
-```
-data_root (mvlrs_v1)
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Wav2Lip</font></font></strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在野外准确地对口型视频</font></font></em></h1><a id="user-content-wav2lip-accurately-lip-syncing-videos-in-the-wild" class="anchor" aria-label="永久链接：Wav2Lip：在野外准确地对口型视频" href="#wav2lip-accurately-lip-syncing-videos-in-the-wild"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您想将其集成到产品中吗？</font><font style="vertical-align: inherit;">我们在这里有一个交钥匙托管 API，其中包含新的和改进的口型同步模型： https: </font></font><a href="https://synclabs.so/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">//synclabs.so/</font></font></a></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对于任何其他商业/企业请求，请通过</font></font><a href="mailto:pavan@synclabs.so"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">pavan@synclabs.so</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和</font></font><a href="mailto:prady@synclabs.so"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">prady@synclabs.so联系我们</font></font></a></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要直接联系作者，您可以通过</font></font><a href="mailto:prajwal@synclabs.so"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">prajwal@synclabs.so</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">、</font></font><a href="mailto:rudrabha@synclabs.so"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">rudrabha@synclabs.so</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">联系我们。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此代码是 ACM Multimedia 2020 上发表的论文的一部分：</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">A Lip Sync Expert Is All You Need for Speech to Lip Generation In the Wild</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p dir="auto"><a href="https://paperswithcode.com/sota/lip-sync-on-lrs2?p=a-lip-sync-expert-is-all-you-need-for-speech" rel="nofollow"><img src="https://camo.githubusercontent.com/46dcacf6259055870176803c3d157ddc303af7eca0ef0c931d34a5ad0d753d51/68747470733a2f2f696d672e736869656c64732e696f2f656e64706f696e742e7376673f75726c3d68747470733a2f2f70617065727377697468636f64652e636f6d2f62616467652f612d6c69702d73796e632d6578706572742d69732d616c6c2d796f752d6e6565642d666f722d7370656563682f6c69702d73796e632d6f6e2d6c727332" alt="普华永道" data-canonical-src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-lip-sync-expert-is-all-you-need-for-speech/lip-sync-on-lrs2" style="max-width: 100%;"></a>
+<a href="https://paperswithcode.com/sota/lip-sync-on-lrs3?p=a-lip-sync-expert-is-all-you-need-for-speech" rel="nofollow"><img src="https://camo.githubusercontent.com/72ad5609da16abb1a53d85e0b972c1f5b058ace972e11acf6c19a3f4bea6c5be/68747470733a2f2f696d672e736869656c64732e696f2f656e64706f696e742e7376673f75726c3d68747470733a2f2f70617065727377697468636f64652e636f6d2f62616467652f612d6c69702d73796e632d6578706572742d69732d616c6c2d796f752d6e6565642d666f722d7370656563682f6c69702d73796e632d6f6e2d6c727333" alt="普华永道" data-canonical-src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-lip-sync-expert-is-all-you-need-for-speech/lip-sync-on-lrs3" style="max-width: 100%;"></a>
+<a href="https://paperswithcode.com/sota/lip-sync-on-lrw?p=a-lip-sync-expert-is-all-you-need-for-speech" rel="nofollow"><img src="https://camo.githubusercontent.com/cf3cdd34ff551b5fb4197bf8b7812309432e8cb3f1ecc336db91b242e377d776/68747470733a2f2f696d672e736869656c64732e696f2f656e64706f696e742e7376673f75726c3d68747470733a2f2f70617065727377697468636f64652e636f6d2f62616467652f612d6c69702d73796e632d6578706572742d69732d616c6c2d796f752d6e6565642d666f722d7370656563682f6c69702d73796e632d6f6e2d6c7277" alt="普华永道" data-canonical-src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-lip-sync-expert-is-all-you-need-for-speech/lip-sync-on-lrw" style="max-width: 100%;"></a></p>
+<table>
+<thead>
+<tr>
+<th align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">📑 原纸</font></font></th>
+<th align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">📰 项目页面</font></font></th>
+<th align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">🌀 演示</font></font></th>
+<th align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">⚡ 现场测试</font></font></th>
+<th align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">📔 Colab 笔记本</font></font></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="http://arxiv.org/abs/2008.10010" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">纸</font></font></a></td>
+<td align="center"><a href="http://cvit.iiit.ac.in/research/projects/cvit-projects/a-lip-sync-expert-is-all-you-need-for-speech-to-lip-generation-in-the-wild/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目页面</font></font></a></td>
+<td align="center"><a href="https://youtu.be/0fXaDCZNOJc" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">演示视频</font></font></a></td>
+<td align="center"><a href="https://synclabs.so/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">互动演示</font></font></a></td>
+<td align="center"><a href="https://colab.research.google.com/drive/1tZpDWXz49W6wDcTprANRGLo2D_EbD5J8?usp=sharing" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Colab 笔记本</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">/</font></font><a href="https://colab.research.google.com/drive/1IjFW1cLevs6Ouyu4Yht4mnR4yeuMqO7Y#scrollTo=MH1m608OymLH" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">更新的协作笔记本</font></font></a></td>
+</tr>
+</tbody>
+</table>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/32342fcb7adb751bca1112605f3f2ed10b5d406338e6b4d3bc4b085fbe751f63/68747470733a2f2f64726976652e676f6f676c652e636f6d2f75633f6578706f72743d766965772669643d31576e3068506d706f3447526243494a523854663230416b7a646931716a6a4739"><img src="https://camo.githubusercontent.com/32342fcb7adb751bca1112605f3f2ed10b5d406338e6b4d3bc4b085fbe751f63/68747470733a2f2f64726976652e676f6f676c652e636f6d2f75633f6578706f72743d766965772669643d31576e3068506d706f3447526243494a523854663230416b7a646931716a6a4739" alt="标识" data-canonical-src="https://drive.google.com/uc?export=view&amp;id=1Wn0hPmpo4GRbCIJR8Tf20Akzdi1qjjG9" style="max-width: 100%;"></a></p>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">强调</font></font></strong></h2><a id="user-content-highlights" class="anchor" aria-label="永久链接：亮点" href="#highlights"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">视觉质量光盘的权重已在自述文件中更新！</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">高精度地将视频口型同步到任何目标语音💯。</font><font style="vertical-align: inherit;">尝试我们的</font></font><a href="https://synclabs.so/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">交互式演示</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">✨ 适用于任何身份、声音和语言。</font><font style="vertical-align: inherit;">也适用于 CGI 面孔和合成声音。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供完整的训练代码、推理代码和预训练模型💥</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">或者，使用 Google Colab Notebook 快速启动：</font></font><a href="https://colab.research.google.com/drive/1tZpDWXz49W6wDcTprANRGLo2D_EbD5J8?usp=sharing" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">链接</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">检查点和示例也</font><font style="vertical-align: inherit;">可以在 Google Drive</font></font><a href="https://drive.google.com/drive/folders/1I-0dNLfFOSFwrfqjNa-SXuwaURHE5K4k?usp=sharing" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文件夹中找到。</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">还有一个关于此的</font></font><a href="https://www.youtube.com/watch?v=Ic0TBhfuOrA" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">教程视频</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，由</font></font><a href="https://www.youtube.com/channel/UCmGXH-jy0o2CuhqtpxbaQgA" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">What Make Art</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供。</font><font style="vertical-align: inherit;">此外，感谢</font></font><a href="https://eyalgruss.com" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Eyal Gruss</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，有了一个更易于使用的</font></font><a href="https://j.mp/wav2lip" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Google Colab 笔记本，</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">具有更多有用的功能。</font></font><a href="https://colab.research.google.com/drive/1IjFW1cLevs6Ouyu4Yht4mnR4yeuMqO7Y#scrollTo=MH1m608OymLH" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此链接</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供了教程协作笔记本</font><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">🔥 🔥 发布了几个新的、可靠的评估基准和指标</font></font><a href="https://github.com/Rudrabha/Wav2Lip/tree/master/evaluation"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">[</font></font><code>evaluation/</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此存储库的文件夹]</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">还提供了计算论文中报告的指标的说明。</font></font></li>
+</ul>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">免责声明</font></font></strong></h2><a id="user-content-disclaimer" class="anchor" aria-label="永久链接：免责声明" href="#disclaimer"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此开源代码或我们的</font></font><a href="https://bhaasha.iiit.ac.in/lipsync" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">演示网站</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的所有结果只能用于研究/学术/个人目的。</font><font style="vertical-align: inherit;">由于模型是在</font></font><a href="http://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs2.html" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">LRS2数据集</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">上训练的，因此严格禁止任何形式的商业用途。</font><font style="vertical-align: inherit;">对于商业请求，请直接联系我们！</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">先决条件</font></font></h2><a id="user-content-prerequisites" class="anchor" aria-label="永久链接：先决条件" href="#prerequisites"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><code>Python 3.6</code></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ffmpeg：</font></font><code>sudo apt-get install ffmpeg</code></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用安装必要的软件包</font></font><code>pip install -r requirements.txt</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font><a href="https://gist.github.com/xenogenesi/e62d3d13dadbc164124c830e9c453668"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">或者，此处</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供了使用 docker 映像的说明</font><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">如果您遇到任何问题，请查看</font></font><a href="https://github.com/Rudrabha/Wav2Lip/issues/131#issuecomment-725478562" data-hovercard-type="issue" data-hovercard-url="/Rudrabha/Wav2Lip/issues/131/hovercard"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此评论</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">并对其</font></font><a href="https://gist.github.com/xenogenesi/e62d3d13dadbc164124c830e9c453668"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要点</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">进行评论。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">人脸检测</font></font><a href="https://www.adrianbulat.com/downloads/python-fan/s3fd-619a316812.pth" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">预训练模型</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">应下载到</font></font><code>face_detection/detection/sfd/s3fd.pth</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">. </font><font style="vertical-align: inherit;">如果上述方法不起作用，请使用</font><font style="vertical-align: inherit;">替代</font></font><a href="https://iiitaphyd-my.sharepoint.com/:u:/g/personal/prajwal_k_research_iiit_ac_in/EZsy6qWuivtDnANIG73iHjIBjMSoojcIV0NULXV-yiuiIg?e=qTasa8" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">链接。</font></font></a><font style="vertical-align: inherit;"></font></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获取权重</font></font></h2><a id="user-content-getting-the-weights" class="anchor" aria-label="永久链接：获取权重" href="#getting-the-weights"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<table>
+<thead>
+<tr>
+<th align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">模型</font></font></th>
+<th align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">描述</font></font></th>
+<th align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">链接到模型</font></font></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">声音2唇</font></font></td>
+<td align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">高精度唇形同步</font></font></td>
+<td align="center"><a href="https://iiitaphyd-my.sharepoint.com/:u:/g/personal/radrabha_m_research_iiit_ac_in/Eb3LEzbfuKlJiR600lQWRxgBIY27JZg80f7V9jtMfbNDaQ?e=TBFBVW" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关联</font></font></a></td>
+</tr>
+<tr>
+<td align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Wav2Lip + GAN</font></font></td>
+<td align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">口型同步稍差，但视觉质量更好</font></font></td>
+<td align="center"><a href="https://iiitaphyd-my.sharepoint.com/:u:/g/personal/radrabha_m_research_iiit_ac_in/EdjI7bZlgApMqsVoEUUXpLsBxqXbn5z8VTmoxp55YNDcIA?e=n9ljGW" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关联</font></font></a></td>
+</tr>
+<tr>
+<td align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">专家鉴别器</font></font></td>
+<td align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">专家判别器的权重</font></font></td>
+<td align="center"><a href="https://iiitaphyd-my.sharepoint.com/:u:/g/personal/radrabha_m_research_iiit_ac_in/EQRvmiZg-HRAjvI6zqN9eTEBP74KefynCwPWVmF57l-AYA?e=ZRPHKP" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关联</font></font></a></td>
+</tr>
+<tr>
+<td align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">视觉质量鉴别器</font></font></td>
+<td align="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在 GAN 设置中训练的视觉盘的权重</font></font></td>
+<td align="center"><a href="https://iiitaphyd-my.sharepoint.com/:u:/g/personal/radrabha_m_research_iiit_ac_in/EQVqH88dTm1HjlK11eNba5gBbn15WMS0B0EZbDBttqrqkg?e=ic0ljo" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关联</font></font></a></td>
+</tr>
+</tbody>
+</table>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">使用预先训练的模型对口型视频进行口型同步（推理）</font></font></h2><a id="user-content-lip-syncing-videos-using-the-pre-trained-models-inference" class="anchor" aria-label="永久链接：使用预训练模型对口型视频进行口型同步（推理）" href="#lip-syncing-videos-using-the-pre-trained-models-inference"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您可以将任何视频与任何音频进行口型同步：</font></font></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>python inference.py --checkpoint_path <span class="pl-k">&lt;</span>ckpt<span class="pl-k">&gt;</span> --face <span class="pl-k">&lt;</span>video.mp<span class="pl-k">4&gt;</span> --audio <span class="pl-k">&lt;</span>an-audio-source<span class="pl-k">&gt;</span> </pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="python inference.py --checkpoint_path <ckpt> --face <video.mp4> --audio <an-audio-source> " tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">结果保存（默认）在</font></font><code>results/result_voice.mp4</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">. </font><font style="vertical-align: inherit;">您可以将其指定为参数，类似于其他几个可用选项。</font><font style="vertical-align: inherit;">音频源可以是</font></font><code>FFMPEG</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">包含音频数据支持的任何文件：</font></font><code>*.wav</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，</font></font><code>*.mp3</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">甚至是视频文件，代码将自动从中提取音频。</font></font></p>
+<div class="markdown-heading" dir="auto"><h5 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获得更好结果的提示：</font></font></h5><a id="user-content-tips-for-better-results" class="anchor" aria-label="永久链接：获得更好结果的提示：" href="#tips-for-better-results"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">尝试</font></font><code>--pads</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">调整检测到的面部边界框的参数。</font><font style="vertical-align: inherit;">通常会带来更好的结果。</font><font style="vertical-align: inherit;">您可能需要增加底部填充以包含下巴区域。</font><font style="vertical-align: inherit;">例如</font></font><code>--pads 0 20 0 0</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您看到嘴部位置错位或一些奇怪的伪影（例如两张嘴），则可能是因为面部检测过度平滑。</font><font style="vertical-align: inherit;">使用</font></font><code>--nosmooth</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">论证并再试一次。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">尝试论证</font></font><code>--resize_factor</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，以获得较低分辨率的视频。</font><font style="vertical-align: inherit;">为什么？</font><font style="vertical-align: inherit;">这些模型是在分辨率较低的面部上进行训练的。</font><font style="vertical-align: inherit;">720p 视频可能会比 1080p 视频获得更好、视觉上更令人愉悦的结果（在许多情况下，后者效果也很好）。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">没有 GAN 的 Wav2Lip 模型通常需要对上述两者进行更多的实验才能得到最理想的结果，有时也可以给你更好的结果。</font></font></li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">准备 LRS2 进行训练</font></font></h2><a id="user-content-preparing-lrs2-for-training" class="anchor" aria-label="永久链接：准备 LRS2 进行训练" href="#preparing-lrs2-for-training"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们的模型在 LRS2 上进行训练。</font><font style="vertical-align: inherit;">请参阅</font></font><a href="#training-on-datasets-other-than-lrs2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">此处</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，了解有关其他数据集训练的一些建议。</font></font></p>
+<div class="markdown-heading" dir="auto"><h5 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">LRS2数据集文件夹结构</font></font></h5><a id="user-content-lrs2-dataset-folder-structure" class="anchor" aria-label="永久链接：LRS2 数据集文件夹结构" href="#lrs2-dataset-folder-structure"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>data_root (mvlrs_v1)
 ├── main, pretrain (we use only main folder in this work)
 |	├── list of folders
 |	│   ├── five-digit numbered video IDs ending with (.mp4)
-```
-
-Place the LRS2 filelists (train, val, test) `.txt` files in the `filelists/` folder.
-
-##### Preprocess the dataset for fast training
-
-```bash
-python preprocess.py --data_root data_root/main --preprocessed_root lrs2_preprocessed/
-```
-Additional options like `batch_size` and the number of GPUs to use in parallel to use can also be set.
-
-##### Preprocessed LRS2 folder structure
-```
-preprocessed_root (lrs2_preprocessed)
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="data_root (mvlrs_v1)
+├── main, pretrain (we use only main folder in this work)
+|	├── list of folders
+|	│   ├── five-digit numbered video IDs ending with (.mp4)" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">将 LRS2 文件列表（train、val、test）</font></font><code>.txt</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文件放入该</font></font><code>filelists/</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文件夹中。</font></font></p>
+<div class="markdown-heading" dir="auto"><h5 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">预处理数据集以进行快速训练</font></font></h5><a id="user-content-preprocess-the-dataset-for-fast-training" class="anchor" aria-label="永久链接：预处理数据集以进行快速训练" href="#preprocess-the-dataset-for-fast-training"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>python preprocess.py --data_root data_root/main --preprocessed_root lrs2_preprocessed/</pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="python preprocess.py --data_root data_root/main --preprocessed_root lrs2_preprocessed/" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">还可以设置其他选项，例如</font></font><code>batch_size</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">并行使用的 GPU 数量。</font></font></p>
+<div class="markdown-heading" dir="auto"><h5 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">预处理的LRS2文件夹结构</font></font></h5><a id="user-content-preprocessed-lrs2-folder-structure" class="anchor" aria-label="永久链接：预处理的 LRS2 文件夹结构" href="#preprocessed-lrs2-folder-structure"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>preprocessed_root (lrs2_preprocessed)
 ├── list of folders
 |	├── Folders with five-digit numbered video IDs
 |	│   ├── *.jpg
 |	│   ├── audio.wav
-```
-
-Train!
-----------
-There are two major steps: (i) Train the expert lip-sync discriminator, (ii) Train the Wav2Lip model(s).
-
-##### Training the expert discriminator
-You can download [the pre-trained weights](#getting-the-weights) if you want to skip this step. To train it:
-```bash
-python color_syncnet_train.py --data_root lrs2_preprocessed/ --checkpoint_dir <folder_to_save_checkpoints>
-```
-##### Training the Wav2Lip models
-You can either train the model without the additional visual quality discriminator (< 1 day of training) or use the discriminator (~2 days). For the former, run: 
-```bash
-python wav2lip_train.py --data_root lrs2_preprocessed/ --checkpoint_dir <folder_to_save_checkpoints> --syncnet_checkpoint_path <path_to_expert_disc_checkpoint>
-```
-
-To train with the visual quality discriminator, you should run `hq_wav2lip_train.py` instead. The arguments for both files are similar. In both cases, you can resume training as well. Look at `python wav2lip_train.py --help` for more details. You can also set additional less commonly-used hyper-parameters at the bottom of the `hparams.py` file.
-
-Training on datasets other than LRS2
-------------------------------------
-Training on other datasets might require modifications to the code. Please read the following before you raise an issue:
-
-- You might not get good results by training/fine-tuning on a few minutes of a single speaker. This is a separate research problem, to which we do not have a solution yet. Thus, we would most likely not be able to resolve your issue. 
-- You must train the expert discriminator for your own dataset before training Wav2Lip.
-- If it is your own dataset downloaded from the web, in most cases, needs to be sync-corrected.
-- Be mindful of the FPS of the videos of your dataset. Changes to FPS would need significant code changes. 
-- The expert discriminator's eval loss should go down to ~0.25 and the Wav2Lip eval sync loss should go down to ~0.2 to get good results. 
-
-When raising an issue on this topic, please let us know that you are aware of all these points.
-
-We have an HD model trained on a dataset allowing commercial usage. The size of the generated face will be 192 x 288 in our new model.
-
-Evaluation
-----------
-Please check the `evaluation/` folder for the instructions.
-
-License and Citation
-----------
-This repository can only be used for personal/research/non-commercial purposes. However, for commercial requests, please contact us directly at rudrabha@synclabs.so or prajwal@synclabs.so. We have a turn-key hosted API with new and improved lip-syncing models here: https://synclabs.so/
-The size of the generated face will be 192 x 288 in our new models. Please cite the following paper if you use this repository:
-```
-@inproceedings{10.1145/3394171.3413532,
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="preprocessed_root (lrs2_preprocessed)
+├── list of folders
+|	├── Folders with five-digit numbered video IDs
+|	│   ├── *.jpg
+|	│   ├── audio.wav" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">火车！</font></font></h2><a id="user-content-train" class="anchor" aria-label="永久链接： 火车！" href="#train"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">有两个主要步骤：(i) 训练专家唇形同步鉴别器，(ii) 训练 Wav2Lip 模型。</font></font></p>
+<div class="markdown-heading" dir="auto"><h5 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">训练专家鉴别器</font></font></h5><a id="user-content-training-the-expert-discriminator" class="anchor" aria-label="永久链接：培训专家鉴别器" href="#training-the-expert-discriminator"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您想跳过此步骤，</font><font style="vertical-align: inherit;">可以下载</font></font><a href="#getting-the-weights"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">预训练的权重。</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">训练它：</font></font></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>python color_syncnet_train.py --data_root lrs2_preprocessed/ --checkpoint_dir <span class="pl-k">&lt;</span>folder_to_save_checkpoints<span class="pl-k">&gt;</span></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="python color_syncnet_train.py --data_root lrs2_preprocessed/ --checkpoint_dir <folder_to_save_checkpoints>" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<div class="markdown-heading" dir="auto"><h5 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">训练 Wav2Lip 模型</font></font></h5><a id="user-content-training-the-wav2lip-models" class="anchor" aria-label="永久链接：训练 Wav2Lip 模型" href="#training-the-wav2lip-models"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您可以在不使用额外视觉质量鉴别器的情况下训练模型（训练时间&lt; 1 天），也可以使用鉴别器（约 2 天）。</font><font style="vertical-align: inherit;">对于前者，运行：</font></font></p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto"><pre>python wav2lip_train.py --data_root lrs2_preprocessed/ --checkpoint_dir <span class="pl-k">&lt;</span>folder_to_save_checkpoints<span class="pl-k">&gt;</span> --syncnet_checkpoint_path <span class="pl-k">&lt;</span>path_to_expert_disc_checkpoint<span class="pl-k">&gt;</span></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="python wav2lip_train.py --data_root lrs2_preprocessed/ --checkpoint_dir <folder_to_save_checkpoints> --syncnet_checkpoint_path <path_to_expert_disc_checkpoint>" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要使用视觉质量鉴别器进行训练，您应该</font></font><code>hq_wav2lip_train.py</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">改为跑步。</font><font style="vertical-align: inherit;">这两个文件的参数相似。</font><font style="vertical-align: inherit;">在这两种情况下，您也可以恢复训练。</font><font style="vertical-align: inherit;">查看</font></font><code>python wav2lip_train.py --help</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">更多详细信息。</font><font style="vertical-align: inherit;">您还可以在文件底部设置其他不太常用的超参数</font></font><code>hparams.py</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在 LRS2 以外的数据集上进行训练</font></font></h2><a id="user-content-training-on-datasets-other-than-lrs2" class="anchor" aria-label="永久链接：在 LRS2 以外的数据集上进行训练" href="#training-on-datasets-other-than-lrs2"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对其他数据集的训练可能需要修改代码。</font><font style="vertical-align: inherit;">在提出问题之前，请先阅读以下内容：</font></font></p>
+<ul dir="auto">
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">通过对单个扬声器进行几分钟的训练/微调可能不会获得良好的结果。</font><font style="vertical-align: inherit;">这是一个单独的研究问题，我们还没有解决方案。</font><font style="vertical-align: inherit;">因此，我们很可能无法解决您的问题。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在训练 Wav2Lip 之前，您必须为自己的数据集训练专家判别器。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果是您自己从网络下载的数据集，大多数情况下需要进行同步校正。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请注意数据集视频的 FPS。</font><font style="vertical-align: inherit;">对 FPS 的更改需要对代码进行重大更改。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">专家鉴别器的评估损失应降至约 0.25，Wav2Lip 评估同步损失应降至约 0.2，以获得良好的结果。</font></font></li>
+</ul>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当提出有关此主题的问题时，请告诉我们您已了解所有这些要点。</font></font></p>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们有一个在允许商业用途的数据集上训练的高清模型。</font><font style="vertical-align: inherit;">在我们的新模型中，生成的面部尺寸将为 192 x 288。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">评估</font></font></h2><a id="user-content-evaluation" class="anchor" aria-label="永久链接：评估" href="#evaluation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请检查</font></font><code>evaluation/</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">文件夹中的说明。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">许可和引用</font></font></h2><a id="user-content-license-and-citation" class="anchor" aria-label="永久链接：许可和引用" href="#license-and-citation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">该存储库只能用于个人/研究/非商业目的。</font><font style="vertical-align: inherit;">但是，对于商业请求，请直接通过</font></font><a href="mailto:rudrabha@synclabs.so"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">rudrabha@synclabs.so</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">或</font></font><a href="mailto:prajwal@synclabs.so"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">prajwal@synclabs.so</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">联系我们。</font><font style="vertical-align: inherit;">我们在这里有一个交钥匙托管 API，其中包含新的和改进的口型同步模型： https: </font></font><a href="https://synclabs.so/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">//synclabs.so/</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+在我们的新模型中，生成的脸部尺寸将为 192 x 288。</font><font style="vertical-align: inherit;">如果您使用此存储库，请引用以下论文：</font></font></p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>@inproceedings{10.1145/3394171.3413532,
 author = {Prajwal, K R and Mukhopadhyay, Rudrabha and Namboodiri, Vinay P. and Jawahar, C.V.},
 title = {A Lip Sync Expert Is All You Need for Speech to Lip Generation In the Wild},
 year = {2020},
@@ -149,16 +211,37 @@ keywords = {lip sync, talking face generation, video generation},
 location = {Seattle, WA, USA},
 series = {MM '20}
 }
-```
-
-
-Acknowledgments
-----------
-Parts of the code structure are inspired by this [TTS repository](https://github.com/r9y9/deepvoice3_pytorch). We thank the author for this wonderful code. The code for Face Detection has been taken from the [face_alignment](https://github.com/1adrianb/face-alignment) repository. We thank the authors for releasing their code and models. We thank [zabique](https://github.com/zabique) for the tutorial collab notebook.
-
-## Acknowledgements
-
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
-
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="@inproceedings{10.1145/3394171.3413532,
+author = {Prajwal, K R and Mukhopadhyay, Rudrabha and Namboodiri, Vinay P. and Jawahar, C.V.},
+title = {A Lip Sync Expert Is All You Need for Speech to Lip Generation In the Wild},
+year = {2020},
+isbn = {9781450379885},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3394171.3413532},
+doi = {10.1145/3394171.3413532},
+booktitle = {Proceedings of the 28th ACM International Conference on Multimedia},
+pages = {484–492},
+numpages = {9},
+keywords = {lip sync, talking face generation, video generation},
+location = {Seattle, WA, USA},
+series = {MM '20}
+}" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">致谢</font></font></h2><a id="user-content-acknowledgments" class="anchor" aria-label="永久链接：致谢" href="#acknowledgments"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">部分代码结构受到此</font></font><a href="https://github.com/r9y9/deepvoice3_pytorch"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">TTS 存储库</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的启发。</font><font style="vertical-align: inherit;">我们感谢作者提供的这段精彩的代码。</font><font style="vertical-align: inherit;">人脸检测的代码取自</font></font><a href="https://github.com/1adrianb/face-alignment"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">face_alignment</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">存储库。</font><font style="vertical-align: inherit;">我们感谢作者发布他们的代码和模型。</font><font style="vertical-align: inherit;">我们感谢</font></font><a href="https://github.com/zabique"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">zabique</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供的教程协作笔记本。</font></font></p>
+<div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">致谢</font></font></h2><a id="user-content-acknowledgements" class="anchor" aria-label="永久链接：致谢" href="#acknowledgements"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<ul dir="auto">
+<li><a href="https://awesomeopensource.com/project/elangosundar/awesome-README-templates" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">很棒的自述文件模板</font></font></a></li>
+<li><a href="https://github.com/matiassingers/awesome-readme"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">很棒的自述文件</font></font></a></li>
+<li><a href="https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如何写一个好的自述文件</font></font></a></li>
+</ul>
+</article></div>
